@@ -41,7 +41,7 @@ class ChatManager:
         ai_response = self.client.get_response(messages)
         
         # Add AI's response to the history
-        self.add_message("assistant",ai_response)
+        self.add_message("assistant", ai_response)
         
         return ai_response
         
