@@ -1,0 +1,15 @@
+# General application setting
+app:
+  name : "Custom ChatGPT"
+  version : "1.0.0"
+
+
+# API Configuration
+api: 
+  key : "${API_KEY}" # Placeholder
+
+# Logging configuration
+
+Logging:
+  level : "INFO"
+  log_directory : "logs"
