@@ -21,3 +21,8 @@ def create_app():
     logger.info("Flask application starting....")
     
     # Import and register routes
+    from .routes import main as main_blueprint
+    
+    app.register_blueprint(main_blueprint)
+    
+    return app

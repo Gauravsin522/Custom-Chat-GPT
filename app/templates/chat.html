@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = 'viewport' content = "width=device-width, initial-scale=1.0">
+        <title>Chat BOT</title>
+        <link rel = "stylesheet" href = "{{url_for('static',filename = 'css/style.css')}}">
+    </head>
+    <body>
+        <header class = "header">
+            <img src = "{{url_for('static',filename = 'images/D:\Project\PW Project\Chat-bot\app\static\images\5230dced-de30-4bda-9c42-cd708fda13c7.jpeg')}}">
+            <h1>Chat_Bot</h1>
+
+            <main class = "chat-area">
+                <div class = 'Chat-box' id="Chat-box">
+                    <!--Initial AI Message -->
+                    <div class="ai-message">
+                        <p>Welcome! How can I assist you today?</p>
+                    </div>                     
+                </div>
+                <div class="input-area">
+                    <textarea id="user-input" placeholder="Type your Message here..."></textarea>
+                    <button id="send-button">Send</button>
+                </div>
+            </main>
+
+            <script>
+                document.getElementById('send-button').addEventListener('click', function(){
+                    const userInput = document.getElementById("user-input");
+                    const Message = userInput.value;
+
+                    if (message.trim() === ""){
+                        return; // Do not send empty messages to api
+                    }
+
+                    // Append user's message
+
+                    const chatbox = document.getElementById('chat-box')
+                    // String literal in javascript
+                    chatbox.innerHTML += `<div class = 'user-message'> <p>${message}</p></div>`;
+
+                    userInput.value='';
+
+                    // Send the message to the server
+                    fetch('api/chat',{
+                        method:'POST',
+                        headers:{
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({message}),
+                     }).then(Response => response.JSON())
+                     .then(data => {
+                        if(data.response){
+                            chatbox.innerHTML += `div class = 'ai-message'>${data.response}</div>`;
+                        } else {
+                            chat.box.innerHTML += `<div class = "error-message"> ${data.error}</div>`;
+                        }
+                        chatbox.scrollTop = chatbox.scrollHeight;
+                     })
+                     .catch(error => {
+                        console.error("Error: ",error);
+                        chatbox.innerHTML += `<div class = 'error-message'> <p> Error Communication with the server. </p> </div>`;
+                     });
+                });
+            </script>
+ </html>  
